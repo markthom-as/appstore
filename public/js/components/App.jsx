@@ -7,8 +7,10 @@ var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
 var RouteHandler = Router.RouteHandler;
 
-// Include view components
+// Include view + static components
+var NavBar = require('./NavBar.jsx');
 var AppStoreView = require('./AppStoreView.jsx');
+var Footer = require('./Footer.jsx');
 
 /* Main App */
 var App = React.createClass({
@@ -19,24 +21,26 @@ var App = React.createClass({
     var name = this.context.router.getCurrentPath();
     return (
       <div>
+        <NavBar />
         <div className="app-inner">
           <TransitionGroup component="div" transitionName="fade">
             <RouteHandler key={name} />
           </TransitionGroup>
         </div>
+        <Footer />
       </div>
       );
   }
 });
 
 var routes = (
-  <Route name="app" path="/" handler={App}>
-    <DefaultRoute name="home" handler={AppStoreView}/>
+  <Route handler={App} path="/">
+    <DefaultRoute handler={AppStoreView}/>
     <NotFoundRoute handler={AppStoreView}/>
   </Route>
 );
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(<Handler/>, document.getElementById('app'));
+  React.render(<Handler/>, document.body);
 });
 

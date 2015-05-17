@@ -9,14 +9,14 @@ var streamify = require('gulp-streamify');
 /* BUILD */
 gulp.task('build', function() {
   browserify({
-    entries: ['./public/js/App.jsx'],
+    entries: ['./public/js/components/App.jsx'],
     transform: [reactify]
   })
   .bundle()
   .pipe(source('bundle.js'))
   // Not Uglifying for readability 
   // .pipe(streamify(uglify('bundle.min.js')))
-  .pipe(gulp.dest('./public/js'));
+  .pipe(gulp.dest('./public/js/build/'));
 });
 
 // Creating simple gulp file just to bundle
