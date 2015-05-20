@@ -23,7 +23,7 @@ var App = React.createClass({displayName: "App",
     return (
       React.createElement("div", null, 
         React.createElement(NavBar, null), 
-        React.createElement("div", {className: "app-inner"}, 
+        React.createElement("div", {className: "app-container"}, 
           React.createElement(TransitionGroup, {component: "div", transitionName: "fade"}, 
             React.createElement(RouteHandler, {key: name})
           )
@@ -45,7 +45,7 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
   React.render(React.createElement(Handler, null), document.body);
 });
 
-},{"./AppStoreView.jsx":226,"./Footer.jsx":227,"./NavBar.jsx":230,"react":205,"react-router":27,"react/lib/ReactCSSTransitionGroup":73}],2:[function(require,module,exports){
+},{"./AppStoreView.jsx":226,"./Footer.jsx":227,"./NavBar.jsx":231,"react":205,"react-router":27,"react/lib/ReactCSSTransitionGroup":73}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -25138,7 +25138,7 @@ var ListContainer = require('./ListContainer.jsx');
 var AppStoreView = React.createClass({displayName: "AppStoreView",
   render: function(){
     return (
-        React.createElement("div", null, 
+        React.createElement("div", {className: "app-inner"}, 
           React.createElement("h1", null, React.createElement("i", {className: "fa fa-apple"}), " AppStore / Apps ", React.createElement("i", {className: "fa fa-share-alt pull-right"})), 
           React.createElement(ListContainer, null)
         )
@@ -25166,6 +25166,8 @@ var Footer = React.createClass({displayName: "Footer",
 module.exports = Footer;
 
 },{}],228:[function(require,module,exports){
+var ListItem = require('./ListItem.jsx');
+
 var List = React.createClass({displayName: "List",
   render: function(){
     return (
@@ -25173,7 +25175,7 @@ var List = React.createClass({displayName: "List",
           React.createElement("h1", null, "List Header"), 
           React.createElement("ul", {className: "list"}, 
             this.props.items.map(function(item){
-              return React.createElement("li", null, item)
+              return React.createElement("li", null, React.createElement(ListItem, {item: item, key: item["App ID"]}))
             })
           )
         )
@@ -25183,7 +25185,7 @@ var List = React.createClass({displayName: "List",
 
 module.exports = List;
 
-},{}],229:[function(require,module,exports){
+},{"./ListItem.jsx":230}],229:[function(require,module,exports){
 var ListStore = require('../stores/ListStore.jsx');
 var ListActions = require('../stores/ListActions.jsx');
 var SideBar = require('./SideBar.jsx');
@@ -25218,13 +25220,51 @@ var ListContainer = React.createClass({displayName: "ListContainer",
 
 module.exports = ListContainer;
 
-},{"../stores/ListActions.jsx":232,"../stores/ListStore.jsx":233,"./List.jsx":228,"./SideBar.jsx":231}],230:[function(require,module,exports){
+},{"../stores/ListActions.jsx":233,"../stores/ListStore.jsx":234,"./List.jsx":228,"./SideBar.jsx":232}],230:[function(require,module,exports){
+var ListItem = React.createClass({displayName: "ListItem",
+  render: function(){
+    console.log(this.props.item);
+    return (
+        React.createElement("div", {className: "list-item"}, 
+          React.createElement("img", {src: "http://placehold.it/300/0bf/333&text=+", className: "app-icon"}), 
+          React.createElement("span", {className: "rank"}, this.props.item["Rank"]), 
+          React.createElement("h3", {className: "app-title"}, this.props.item["App Name"])
+        )
+      )
+  }
+});
+
+module.exports = ListItem;
+
+
+
+// App ID: "469369175"
+// App Name: "CSR Racing"
+// Best Rank: "1"
+// Bundle ID: "com.naturalmotion.csr4c3"
+// Company Location: "United Kingdom"
+// Company Name: "NaturalMotion"
+// Company URL: "http://www.naturalmotiongames.com/"
+// Developer: "NaturalMotion"
+// Developer iTunes Link: "https://itunes.apple.com/us/artist/naturalmotion/id330281898?uo=4"
+// Genre: "Games"
+// Number of SDKs: "36"
+// Price: "0.0"
+// Rank: "2"
+// Rating Count (All Versions): "656116"
+// Release Date: "2012-06-28"
+// Report: "https://mixrank.com/appstore/apps/469369175"
+// Seller: "NaturalMotion Games Limited"
+// Updated Date: "2015-04-27"
+// Version: "2.7.2"
+
+},{}],231:[function(require,module,exports){
 var NavBar = React.createClass({displayName: "NavBar",
   render: function(){
     return (
         React.createElement("div", {className: "navbar"}, 
           React.createElement("img", {src: "https://mixrank.com/static/images/logo.png?159", className: "logo pull-left"}), 
-          React.createElement("div", {className: "pull-right"}, 
+          React.createElement("div", {className: " navbar-right pull-right"}, 
             React.createElement("a", {href: "#"}, "Browse ", React.createElement("b", {className: "caret"})), 
             React.createElement("a", {href: "#"}, " ", React.createElement("i", {className: "fa fa-gear"}))
           )
@@ -25237,12 +25277,15 @@ var NavBar = React.createClass({displayName: "NavBar",
 
 module.exports = NavBar;
 
-},{}],231:[function(require,module,exports){
+},{}],232:[function(require,module,exports){
 var SideBar = React.createClass({displayName: "SideBar",
   render: function(){
     return (
         React.createElement("div", {className: "sidebar"}, 
-          this.props.filters
+          React.createElement("input", {className: "search"}, "Search"), 
+          React.createElement("ul", {className: "filters"}, 
+            this.props.filters
+          )
         )
       )
   }
@@ -25250,7 +25293,7 @@ var SideBar = React.createClass({displayName: "SideBar",
 
 module.exports = SideBar;
 
-},{}],232:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 var Reflux = require('reflux');
 
 var data = [{
@@ -25482,20 +25525,21 @@ var makeFilters = function(data){
 
 ListActions.loadItems.preEmit = function() {
   // #### Disabling AJAX Call due to CORS issue ####
-  // $.ajax({
-  //   type: 'GET',
-  //   url: 'https://mixrank.com/appstore/apps?render=json'
-  // }).done(function(data) {
-  //   data = JSON.parse(data);
-  //   ListActions.loadComplete(data);
-  // });
+  $.ajax({
+    type: 'GET',
+    url: 'https://beta.mixrank.com/appstore/apps?render=json',
+    'Access-Control-Alloy-Origin': '*'
+  }).done(function(data) {
+    data = JSON.parse(data);
+    ListActions.loadComplete(data);
+  });
 
   ListActions.loadComplete(makeFilters(data));
 }
 
 module.exports = ListActions;
 
-},{"reflux":206}],233:[function(require,module,exports){
+},{"reflux":206}],234:[function(require,module,exports){
 var Reflux = require('reflux');
 var ListActions = require('./ListActions.jsx');
 
@@ -25518,4 +25562,4 @@ var ListStore = Reflux.createStore({
 
 module.exports = ListStore;
 
-},{"./ListActions.jsx":232,"reflux":206}]},{},[1]);
+},{"./ListActions.jsx":233,"reflux":206}]},{},[1]);

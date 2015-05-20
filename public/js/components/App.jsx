@@ -22,7 +22,7 @@ var App = React.createClass({
     return (
       <div>
         <NavBar />
-        <div className="app-inner">
+        <div className="app-container">
           <TransitionGroup component="div" transitionName="fade">
             <RouteHandler key={name} />
           </TransitionGroup>

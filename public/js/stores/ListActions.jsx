@@ -229,13 +229,14 @@ var makeFilters = function(data){
 
 ListActions.loadItems.preEmit = function() {
   // #### Disabling AJAX Call due to CORS issue ####
-  // $.ajax({
-  //   type: 'GET',
-  //   url: 'https://mixrank.com/appstore/apps?render=json'
-  // }).done(function(data) {
-  //   data = JSON.parse(data);
-  //   ListActions.loadComplete(data);
-  // });
+  $.ajax({
+    type: 'GET',
+    url: 'https://beta.mixrank.com/appstore/apps?render=json',
+    'Access-Control-Alloy-Origin': '*'
+  }).done(function(data) {
+    data = JSON.parse(data);
+    ListActions.loadComplete(data);
+  });
 
   ListActions.loadComplete(makeFilters(data));
 }

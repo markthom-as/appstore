@@ -1,1 +1,119 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
+html{
+    font-family:  'Open Sans';
+}
+.navbar {
+    width: 99%;
+    margin: 0 auto;
+    height: 50px;
+    background-color: #eeeeee;
+}
+
+.logo{
+    display: block;
+    width: 150px;
+    height: 25px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+}
+
+.navbar-right{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 25px;
+    height: 100%
+}
+
+.navbar-right a{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 14px;
+    margin-left: 15px;
+    width: 90px    
+}
+
+.app-container{
+    background-color: #eee;
+    margin: 0 auto;
+    width: 99%;
+    margin-top: 10px;
+
+}
+.app-inner{
+    background-color: #eee;
+    padding: 25px;
+    height: auto;
+    width: auto;
+}
+
+.app-container h1{
+    margin-top: 0px;
+}
+
+.sidebar{
+    width: 33%;
+    min-width: 220px;
+    max-width: 250px;
+    background-color: white;
+    float: left;
+    margin-right: 15px
+}
+
+.list-container{
+    display: inline-flex;
+    width: 100%;
+    height: auto;
+}
+
+.list{
+    background-color: white;
+    margin: 0 auto;
+    width: 90%;
+    padding: 0px;
+}
+
+
+.list h1{
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.list li{
+    width: 100%;
+    list-style: none;
+    margin: 0 auto;
+    
+}
+
+.list-item{
+    display: flex;
+    align-items: flex-start;
+    background-color: #eee;
+    margin: 20px;
+    width: auto;
+
+}
+
+.list-item img{
+    display: flex;
+    border-radius: 100%;
+    width: 75px;
+    height: 75px;
+    margin: 10px;
+}
+
+.list-item .rank{
+    width: 75px;
+    text-align: center;
+    margin: auto;
+    margin-left: -85px;
+    margin-right: 25px;
+}
+
+.app-title{
+    display: flex;
+    margin: auto;
+    margin-left: 0px;
+}

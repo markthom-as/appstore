@@ -1,3 +1,5 @@
+var ListItem = require('./ListItem.jsx');
+
 var List = React.createClass({
   render: function(){
     return (
@@ -5,7 +7,7 @@ var List = React.createClass({
           <h1>List Header</h1>
           <ul className="list">
             {this.props.items.map(function(item){
-              return <li>{item}</li>
+              return <li><ListItem item={item} key={item["App ID"]}/></li>
             })}
           </ul>
         </div>
